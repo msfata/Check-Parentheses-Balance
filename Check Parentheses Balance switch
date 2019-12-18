@@ -1,0 +1,50 @@
+import java.util.LinkedList;
+
+public class Balance {
+
+	public static void main(String[] args) {
+		System.out.println(CheckParentheses.check("{[<>]}"));
+	}
+
+	static class CheckParentheses {
+		public static Boolean check(String string) {
+			LinkedList<Character> list = new LinkedList<Character>();
+			for (int i = 0; i < string.length(); i++) {
+				Character ch = string.charAt(i);
+				/*
+				 * only allow parentheses { [ ( <> ) ] }
+				 */
+				if (ch == '{' || ch == '(' || ch == '[' || ch == '}' || ch == ')' || ch == ']' || ch == '<'
+						|| ch == '>') {
+					if (ch == '{' || ch == '(' || ch == '[' || ch == '<') {
+						list.push(ch);
+					} else {
+						switch (ch) {
+						case '}':
+							if (list.isEmpty() || list.pop() != '{')
+								return false;
+							break;
+						case ']':
+							if (list.isEmpty() || list.pop() != '[')
+								return false;
+							break;
+						case ')':
+							if (list.isEmpty() || list.pop() != '(')
+								return false;
+							break;
+						case '>':
+							if (list.isEmpty() || list.pop() != '<')
+								return false;
+							break;
+						case ' ':
+							continue;
+						default:
+						}
+					}
+				}
+			}
+			return list.isEmpty();
+		}
+	}
+
+}
